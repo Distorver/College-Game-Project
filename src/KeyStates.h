@@ -15,13 +15,18 @@ void initKeys() {
 }
 
 void keyPressed(unsigned char key, int x, int y) {
-    // if (currentState == DIED){
-    //     resetLevel();
-    //     currentState = PLAYING;
-    //     return;
-    // }
+    if (currentState == DIED) {
+        resetLevel();
+        currentState = PLAYING;
+        return;
+    }
 
     keyStates[key] = true;
+
+    if (key == 'r' || key == 'R') {
+        resetLevel();
+        return;
+    }
 
     // JUMP LOGIC
     if (key == ' ' || key == 'w' || key == 'W') {
@@ -45,6 +50,12 @@ void keyUp(unsigned char key, int x, int y) {
 }
 
 void specialKeyPressed(int key, int x, int y) {
+    if (currentState == DIED) {
+        resetLevel();
+        currentState = PLAYING;
+        return;
+    }
+
     specialKeyStates[key] = true;
 
     if (key == GLUT_KEY_UP) {

@@ -29,4 +29,16 @@ void drawPlayer() {
         glEnd();
 }
 
+// Spikes rendering function
+void drawSpikes() {
+    glColor4f(0.98, 0.49, 0.31, 1.0);
+    glBegin(GL_TRIANGLES);
+        for(int i = 0; i < numSpikes; i++){
+            glVertex2f(spikes[i].x , spikes[i].y);
+            glVertex2f(spikes[i].x + spikes[i].width , spikes[i].y);
+            glVertex2f(spikes[i].x + spikes[i].width / 2 , spikes[i].y + spikes[i].height);
+        }
+    glEnd();
+}
+
 #endif

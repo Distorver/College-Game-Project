@@ -2,10 +2,12 @@
 #include "src/Globals.h"
 #include "src/Renderer.h"
 #include "src/Physics.h"
+#include "src/Logic.h"
 #include "src/KeyStates.h"
 
 void display(){
     glClear(GL_COLOR_BUFFER_BIT);
+    drawSpikes();
     drawLevel();
     drawPlayer();
     glutSwapBuffers();
@@ -14,6 +16,9 @@ void display(){
 void timer(int v) {
     deltaTime = 0.016f;
     updatePhysics();
+    trapPlat();
+
+    glutPostRedisplay();
     glutTimerFunc(16, timer, 0);
 }
 

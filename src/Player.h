@@ -2,8 +2,8 @@
 #define PLAYER_H
 
 struct Player {
-    float x = 5, y = 50, width = 4, height = 4, velX = 25, velY = 0;
-    bool isGrounded = true;
+    float x = 5, y = 50, width = 4, height = 4, velX = 28, velY = 0;
+    bool isGrounded = false;
     int jumpCount = 0;
 };
 
