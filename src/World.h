@@ -11,8 +11,8 @@ struct Platform {
 struct Spikes {
     float x;
     bool isHidden = false;
-    float triggerX = 65;
-    float width = 4, y = 30, height = 4;
+    float y = 30;
+    float triggerX = 65, width = 4, height = 4;
 };
 
 

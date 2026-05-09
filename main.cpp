@@ -9,7 +9,8 @@ void display(){
     glClear(GL_COLOR_BUFFER_BIT);
     drawSpikes();
     drawLevel();
-    drawPlayer();
+    if(currentState == PLAYING)
+        drawPlayer();
     glutSwapBuffers();
 }
 
@@ -17,6 +18,7 @@ void timer(int v) {
     deltaTime = 0.016f;
     updatePhysics();
     trapPlat();
+    trapSpikes();
 
     glutPostRedisplay();
     glutTimerFunc(16, timer, 0);
