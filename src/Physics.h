@@ -59,10 +59,7 @@ void updatePhysics() {
                 square.y = p.y;
                 square.velY = 0.0f;
                 square.isGrounded = true;
-                if(currentLevel == 1)
-                    square.jumpCount = 0;
-                else
-                    square.jumpCount = 1;
+                square.jumpCount = 0;
             }
         }
     }

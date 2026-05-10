@@ -20,6 +20,7 @@ int currentNumSpikes = 0;
 
 const int numPlatforms_1 = 5;
 const int numPlatforms_2 = 3;
+const int numPlatforms_3 = 6;
 
 Platform level_1[numPlatforms_1] = {
     {0,25},
@@ -33,6 +34,15 @@ Platform level_2[numPlatforms_2] = {
     {0,70},
     {85,75},
     {100,8,true,80,30,15}
+};
+
+Platform level_3[numPlatforms_3] = {
+    {0,20,false,0,30,7},
+    {32,20,true,40,30,7},
+    {64,20,true,40,30,7},
+    {96,20,true,40,30,7},
+    {128,20,true,40,30,7},
+    {160,20,true,40,30,7}
 };
 
 const int numSpikes_1 = 9;
@@ -64,7 +74,14 @@ void setLevelData(int level) {
         currentSpikes = nullptr;
         currentNumSpikes = 0;
         currentGoal = {145, 30, 5, 6};
-    } //TODO else if level 3
+    }  else if(level == 3) {
+        square.x = 140;
+        currentPlatforms = level_3;
+        currentNumPlatforms = numPlatforms_3;
+        currentSpikes = nullptr;
+        currentNumSpikes = 0;
+        currentGoal = {10, 30, 5, 6};
+    } 
 }
 
 void resetLevel() {
@@ -92,6 +109,13 @@ void resetLevel() {
         level_2[0] = {0,70};
         level_2[1] = {85,75};
         level_2[2] = {100,8,true,80,30,15,false};
+    } else if(currentLevel == 3) {
+        level_3[0] = {0,20,false,0,30,7};
+        level_3[1] = {32,20,true,40,30,7};
+        level_3[2] = {64,20,true,40,30,7};
+        level_3[3] = {96,20,true,40,30,7};
+        level_3[4] = {128,20,true,40,30,7};
+        level_3[5] = {160,20,true,40,30,7};
     }
 }
 
@@ -102,7 +126,7 @@ void loadLevel(int level) {
 }
 
 void loadNextLevel() {
-    currentLevel = (currentLevel < 2 ? currentLevel + 1 : 1);
+    currentLevel = (currentLevel < 3 ? currentLevel + 1 : 1);
     loadLevel(currentLevel);
 }
 

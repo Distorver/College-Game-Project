@@ -36,7 +36,7 @@ int main(int argc, char** argv){
     gluOrtho2D(0, 160, 0, 90);
     glClearColor(0.55, 0.78, 0.75, 1.0);
 
-    loadLevel(2);
+    loadLevel(1);
     initKeys();
     glutKeyboardFunc(keyPressed);
     glutKeyboardUpFunc(keyUp);

@@ -30,10 +30,21 @@ void keyPressed(unsigned char key, int x, int y) {
 
     // JUMP LOGIC
     if (key == ' ' || key == 'w' || key == 'W') {
-        if (square.isGrounded || square.jumpCount < 2) {
-            square.velY = JUMP_FORCE;
-            square.isGrounded = false;
-            square.jumpCount++;
+        if (currentLevel == 1) {
+            if (square.isGrounded) {
+                square.velY = JUMP_FORCE;
+                square.isGrounded = false;
+                square.jumpCount++;
+            } else if (square.jumpCount == 1) {
+                square.velY = JUMP_FORCE;
+                square.jumpCount++;
+            }
+        } else {
+            if (square.isGrounded) {
+                square.velY = JUMP_FORCE;
+                square.isGrounded = false;
+                square.jumpCount++;
+            }
         }
     }
 
@@ -59,10 +70,21 @@ void specialKeyPressed(int key, int x, int y) {
     specialKeyStates[key] = true;
 
     if (key == GLUT_KEY_UP) {
-        if (square.isGrounded || square.jumpCount < 2) {
-            square.velY = JUMP_FORCE;
-            square.isGrounded = false;
-            square.jumpCount++;
+        if (currentLevel == 1) {
+            if (square.isGrounded) {
+                square.velY = JUMP_FORCE;
+                square.isGrounded = false;
+                square.jumpCount++;
+            } else if (square.jumpCount == 1) {
+                square.velY = JUMP_FORCE;
+                square.jumpCount++;
+            }
+        } else {
+            if (square.isGrounded) {
+                square.velY = JUMP_FORCE;
+                square.isGrounded = false;
+                square.jumpCount++;
+            }
         }
     }
 }

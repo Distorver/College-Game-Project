@@ -6,6 +6,45 @@
 #include "Globals.h"
 #include "Physics.h"
 
+void trapPlat_3() {
+    for(auto &p : level_3) {
+        // 1. Skip this entire loop if it's not a trap
+        if(!p.isTrap) {
+            continue; 
+        }
+
+        float dx = 0;
+
+        // 2. Check if the player crossed the trigger line
+        // (Changed to '>' so it triggers when the player gets close)
+        if(!p.trigger && (square.x + square.width < p.triggerX)) {
+            p.trigger = true; // The trap is sprung!
+        }
+
+        // 3. Set the speed based on whether it is triggered or not
+        if(p.trigger) {
+            dx = 15.0f * deltaTime;  // Move Right after triggering
+        } else {
+            dx = -15.0f * deltaTime; // Move Left before triggering
+        }
+
+        // 4. Move the platform
+        p.x += dx;
+
+        // 5. Move the player ONLY if they are standing on THIS platform
+        // We check if they are grounded AND within the left/right edges of this platform
+        if(square.isGrounded) {
+            bool isOverlappingX = (square.x + square.width > p.x) && (square.x < p.x + p.width);
+            
+            // Note: If you have platforms at different heights, you should also check 
+            // if the square's Y position matches this platform's Y position here!
+            if(isOverlappingX) {
+                square.x += dx;
+            }
+        }
+    }
+}
+
 void trapPlat_2(){
     float moveSpeed = 40 * deltaTime;
     Platform &p = level_2[2];
@@ -63,6 +102,7 @@ void trapPlat(){
             }
         }
     } else if (currentLevel == 2) trapPlat_2();
+    else if (currentLevel == 3) trapPlat_3();
 
     if(square.y < -15) currentState = DIED;
 }
