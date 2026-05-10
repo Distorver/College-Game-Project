@@ -9,6 +9,7 @@ void display(){
     glClear(GL_COLOR_BUFFER_BIT);
     drawSpikes();
     drawLevel();
+    drawGoal();
     if(currentState == PLAYING)
         drawPlayer();
     glutSwapBuffers();
@@ -16,9 +17,10 @@ void display(){
 
 void timer(int v) {
     deltaTime = 0.016f;
-    updatePhysics();
     trapPlat();
+    updatePhysics();
     trapSpikes();
+    checkGoal();
 
     glutPostRedisplay();
     glutTimerFunc(16, timer, 0);
@@ -34,6 +36,7 @@ int main(int argc, char** argv){
     gluOrtho2D(0, 160, 0, 90);
     glClearColor(0.55, 0.78, 0.75, 1.0);
 
+    loadLevel(2);
     initKeys();
     glutKeyboardFunc(keyPressed);
     glutKeyboardUpFunc(keyUp);

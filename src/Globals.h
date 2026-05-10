@@ -5,16 +5,23 @@
 #include "Player.h"
 #include "GameState.h"
 
-
-const float GRAVITY = -200.0f;        
-const float JUMP_FORCE = 60.0f;       
-const float JUMP_CUT_MULTIPLIER = 0.45f;       
+const float GRAVITY = -200.0f;
+const float JUMP_FORCE = 60.0f;
+const float JUMP_CUT_MULTIPLIER = 0.45f;
 
 Player square;
+Goal currentGoal;
 
+int currentLevel = 1;
+Platform* currentPlatforms = nullptr;
+int currentNumPlatforms = 0;
+Spikes* currentSpikes = nullptr;
+int currentNumSpikes = 0;
 
-const int numPlatforms = 5;
-Platform levels[numPlatforms] = {
+const int numPlatforms_1 = 5;
+const int numPlatforms_2 = 3;
+
+Platform level_1[numPlatforms_1] = {
     {0,25},
     {25,30,true,30},
     {55,45},
@@ -22,39 +29,81 @@ Platform levels[numPlatforms] = {
     {130,30},
 };
 
-const int numSpikes = 9;
-Spikes spikes[numSpikes] = {
-    {59,true,26},
-    {63,true,26},
-    {67,true,26},
-    
-    {71,false,30},
-    {75,false,30},
-    {79,false,30},
-
-    {83,true,26},
-    {87,true,26},
-    {91,true,26}
+Platform level_2[numPlatforms_2] = {
+    {0,70},
+    {85,75},
+    {100,8,true,80,30,15}
 };
+
+const int numSpikes_1 = 9;
+
+Spikes spikes_1[numSpikes_1] = {
+    {61,true,26},
+    {65,true,26},
+    {69,true,26},
+
+    {73,false,30},
+    {77,false,30},
+    {81,false,30},
+
+    {85,true,26},
+    {89,true,26},
+    {93,true,26}
+};
+
+void setLevelData(int level) {
+    if (level == 1) {
+        currentPlatforms = level_1;
+        currentNumPlatforms = numPlatforms_1;
+        currentSpikes = spikes_1;
+        currentNumSpikes = numSpikes_1;
+        currentGoal = {145, 30, 5, 6};
+    } else if(level == 2) {
+        currentPlatforms = level_2;
+        currentNumPlatforms = numPlatforms_2;
+        currentSpikes = nullptr;
+        currentNumSpikes = 0;
+        currentGoal = {145, 30, 5, 6};
+    } //TODO else if level 3
+}
 
 void resetLevel() {
     square = Player();
     currentState = PLAYING;
+    setLevelData(currentLevel);
 
-    levels[1] = {25,30,true,30};
-    levels[3] = {100,30,true,105};
+    if (currentLevel == 1) {
+        level_1[1] = {25,30,true,30,30,30,false};
+        level_1[3] = {100,30,true,105,30,30,false};
 
-    spikes[0] = {59,true,26};
-    spikes[1] = {63,true,26};
-    spikes[2] = {67,true,26};
+        spikes_1[0] = {61,true,26};
+        spikes_1[1] = {65,true,26};
+        spikes_1[2] = {69,true,26};
 
-    spikes[3] = {71,false,30};
-    spikes[4] = {75,false,30};
-    spikes[5] = {79,false,30};
-    
-    spikes[6] = {83,true,26};
-    spikes[7] = {87,true,26};
-    spikes[8] = {91,true,26};
+        spikes_1[3] = {73,false,30};
+        spikes_1[4] = {77,false,30};
+        spikes_1[5] = {81,false,30};
+
+        spikes_1[6] = {85,true,26};
+        spikes_1[7] = {89,true,26};
+        spikes_1[8] = {93,true,26};
+    } else if(currentLevel == 2) {
+        square.jumpCount = 1;
+        level_2[0] = {0,70};
+        level_2[1] = {85,75};
+        level_2[2] = {100,8,true,80,30,15,false};
+    }
+}
+
+void loadLevel(int level) {
+    currentLevel = level;
+    setLevelData(level);
+    resetLevel();
+}
+
+void loadNextLevel() {
+    currentLevel = (currentLevel < 2 ? currentLevel + 1 : 1);
+    loadLevel(currentLevel);
 }
 
 #endif

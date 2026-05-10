@@ -30,16 +30,16 @@ void updatePhysics() {
 
     square.x += dx;
 
-    for (auto &p : levels) {
+    for (int i = 0; i < currentNumPlatforms; i++) {
+        Platform &p = currentPlatforms[i];
         bool overlapX = square.x + square.width > p.x && square.x < p.x + p.width;
-        bool overlapY = square.y + square.height > p.y - p.height && square.y < p.y; 
+        bool overlapY = square.y + square.height > p.y - p.height && square.y < p.y;
 
         if (overlapX && overlapY) {
-            if (dx > 0) { 
-                square.x = p.x - square.width; 
-            } 
-            else if (dx < 0) { 
-                square.x = p.x + p.width; 
+            if (dx > 0) {
+                square.x = p.x - square.width;
+            } else if (dx < 0) {
+                square.x = p.x + p.width;
             }
         }
     }
@@ -52,13 +52,17 @@ void updatePhysics() {
     square.y += square.velY * deltaTime;
     square.isGrounded = false;
 
-    for (auto &p : levels) {     
+    for (int i = 0; i < currentNumPlatforms; i++) {
+        Platform &p = currentPlatforms[i];
         if (square.x + square.width > p.x && square.x < p.x + p.width) {
-            if (square.velY <= 0.0f && square.y <= p.y && square.y + 3.0f > p.y) { 
+            if (square.velY <= 0.0f && square.y <= p.y && square.y + 3.0f > p.y) {
                 square.y = p.y;
                 square.velY = 0.0f;
                 square.isGrounded = true;
-                square.jumpCount = 0; 
+                if(currentLevel == 1)
+                    square.jumpCount = 0;
+                else
+                    square.jumpCount = 1;
             }
         }
     }
