@@ -11,6 +11,7 @@ void gameLoop() {
     updatePhysics();
     updateTrapPlatforms();
     updateSpikes();
+    updateAnimation(player, lastDx, deltaTime);
     checkGoalReached();
     renderScene();
 }
@@ -23,7 +24,8 @@ int main(int argc, char** argv) {
     glutFullScreen();
 
     gluOrtho2D(0, 160, 0, 90);
-    glClearColor(0.55, 0.78, 0.75, 1.0);
+    glClearColor(0.25, 0.3, 0.35, 1.0);
+    initSprites();
 
     loadLevel(1);
     initInput();

@@ -12,6 +12,7 @@ float lastFrameTime = 0.0f;
 int frameCount = 0;
 float fpsTimer = 0.0f;
 int currentFPS = 0;
+float lastDx;
 
 void calculateDeltaTime() {
     float currentFrameTime = glutGet(GLUT_ELAPSED_TIME) / 1000.0f;
@@ -41,7 +42,8 @@ void updatePhysics() {
         dx += player.velX * deltaTime;
     }
 
-    player.x += dx;
+    if(gameState == PLAYING)
+        player.x += dx;
 
     // Platform collision (horizontal)
     for (int i = 0; i < currentNumPlatforms; i++) {
@@ -78,6 +80,7 @@ void updatePhysics() {
             }
         }
     }
+    lastDx = dx;
 }
 
 #endif

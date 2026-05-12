@@ -5,6 +5,7 @@
 #include "../common/Structs.h"
 #include "../common/Constants.h"
 #include "GameManager.h"
+#include "../graphics/PlayerAnimator.h"
 
 bool keyStates[MAX_KEYS];
 bool specialKeyStates[MAX_KEYS];
@@ -17,6 +18,7 @@ void initInput() {
 }
 
 void handleJump() {
+    animState = ANIM_JUMP;
     if (currentLevel == 1) {
         if (player.isGrounded) {
             player.velY = JUMP_FORCE;

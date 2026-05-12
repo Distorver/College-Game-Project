@@ -5,11 +5,12 @@
 #include <cstdio>
 #include <cstring>
 #include "../core/GameManager.h"
+#include "PlayerAnimator.h"
 
 extern int currentFPS;
 
 void renderLevel() {
-    glColor4f(0.34, 0.25, 0.33, 1.0);
+    glColor4f(0.07, 0.10, 0.15, 1.0);
     glBegin(GL_QUADS);
     for (int i = 0; i < currentNumPlatforms; i++) {
         glVertex2f(currentPlatforms[i].x, currentPlatforms[i].y - currentPlatforms[i].height);
@@ -21,17 +22,11 @@ void renderLevel() {
 }
 
 void renderPlayer() {
-    glColor4f(0.99, 0.74, 0.40, 1.0);
-    glBegin(GL_QUADS);
-    glVertex2f(player.x, player.y);
-    glVertex2f(player.x + player.width, player.y);
-    glVertex2f(player.x + player.width, player.y + player.height);
-    glVertex2f(player.x, player.y + player.height);
-    glEnd();
+    renderPlayerSprite(player);
 }
 
 void renderSpikes() {
-    glColor4f(0.98, 0.49, 0.31, 1.0);
+    glColor4f(0.83, 0.85, 0.85, 1.0);
     glBegin(GL_TRIANGLES);
     for (int i = 0; i < currentNumSpikes; i++) {
         glVertex2f(currentSpikes[i].x, currentSpikes[i].y);
@@ -51,6 +46,26 @@ void renderGoal() {
     glEnd();
 }
 
+float getTextWidth(const char *text, void *font) {
+    float width = 0.0f;
+    for (const char *c = text; *c != '\0'; c++) {
+        width += glutBitmapWidth(font, *c);
+    }
+    return width;
+}
+
+void renderText(const char *text, float x, float y, void *font = GLUT_BITMAP_HELVETICA_18) {
+    glRasterPos2f(x, y);
+    for (const char *c = text; *c != '\0'; c++) {
+        glutBitmapCharacter(font, *c);
+    }
+}
+
+void renderCenteredText(const char *text, float y, void *font = GLUT_BITMAP_HELVETICA_18) {
+    float width = getTextWidth(text, font);
+    renderText(text, 960.0f - width * 0.5f, y, font);
+}
+
 void renderFPS() {
     // Save current matrix mode
     glMatrixMode(GL_PROJECTION);
@@ -66,8 +81,8 @@ void renderFPS() {
     char fpsText[32];
     snprintf(fpsText, sizeof(fpsText), "FPS: %d", currentFPS);
 
-    glColor3f(0.0f, 1.0f, 0.0f);  // Green color
-    glRasterPos2f(10.0f, 30.0f);    // Top-left position
+    glColor3f(1.0f, 1.0f, 1.0f);
+    glRasterPos2f(10.0f, 30.0f);
 
     for (const char *c = fpsText; *c != '\0'; c++) {
         glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, *c);
@@ -85,11 +100,29 @@ void renderScene() {
     renderSpikes();
     renderLevel();
     renderGoal();
-    if (gameState == PLAYING)
-        renderPlayer();
+    renderPlayer();
     
     // Render FPS counter
     renderFPS();
+
+    if (gameState == DIED) {
+        glMatrixMode(GL_PROJECTION);
+        glPushMatrix();
+        glLoadIdentity();
+        glOrtho(0, 1920, 1080, 0, -1, 1);
+
+        glMatrixMode(GL_MODELVIEW);
+        glPushMatrix();
+        glLoadIdentity();
+
+        glColor3f(1.0f, 0.2f, 0.2f);
+        renderCenteredText("YOU DIED! PRESS ANY KEY TO START", 520.0f, GLUT_BITMAP_HELVETICA_18);
+
+        glPopMatrix();
+        glMatrixMode(GL_PROJECTION);
+        glPopMatrix();
+        glMatrixMode(GL_MODELVIEW);
+    }
     
     glutSwapBuffers();
 }

@@ -17,11 +17,11 @@ struct Spike {
 };
 
 struct Goal {
-    float x = 145, y = 30, width = 5, height = 6;
+    float x = 145, y = 30, width = 5, height = 8;
 };
 
 struct Player {
-    float x = 5, y = 50, width = 4, height = 4, velX = 28, velY = 0;
+    float x = 10, y = 30, width = 2.5, height = 2.5, velX = 28, velY = 0;
     bool isGrounded = false;
     int jumpCount = 0;
 };
