@@ -1,10 +1,12 @@
 #ifndef INPUT_HANDLER_H
 #define INPUT_HANDLER_H
 
+#include <cstdio>
 #include <GL/glut.h>
 #include "../common/Structs.h"
 #include "../common/Constants.h"
 #include "GameManager.h"
+#include "AudioManager.h"
 #include "../graphics/PlayerAnimator.h"
 
 bool keyStates[MAX_KEYS];
@@ -24,15 +26,19 @@ void handleJump() {
             player.velY = JUMP_FORCE;
             player.isGrounded = false;
             player.jumpCount++;
+            playJumpSound();
         } else if (player.jumpCount == 1) {
             player.velY = JUMP_FORCE;
             player.jumpCount++;
+            playJumpSound();
+
         }
     } else {
         if (player.isGrounded) {
             player.velY = JUMP_FORCE;
             player.isGrounded = false;
             player.jumpCount++;
+            playJumpSound();
         }
     }
 }
@@ -51,11 +57,26 @@ void onKeyPressed(unsigned char key, int x, int y) {
         return;
     }
 
+    if (key == 'm' || key == 'M') {
+        toggleAudioEnabled();
+        printf("Audio %s\n", isAudioEnabled() ? "ON" : "OFF");
+        return;
+    }
+
+    if (key == 'b' || key == 'B') {
+        toggleMusicEnabled();
+        printf("Music %s\n", isMusicEnabled() ? "ON" : "OFF");
+        return;
+    }
+
     if (key == ' ' || key == 'w' || key == 'W') {
         handleJump();
     }
 
-    if (key == 27) exit(0);
+    if (key == 27) {
+        stopAudio();
+        exit(0);
+    }
 }
 
 void onKeyReleased(unsigned char key, int x, int y) {

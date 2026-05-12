@@ -4,12 +4,14 @@
 #include "../common/Structs.h"
 #include "../common/Constants.h"
 #include "../game/LevelData.h"
+#include "AudioManager.h"
 
 // Global game state
 GameState gameState = PLAYING;
 int currentLevel = 1;
 Player player;
 Goal goal;
+bool deathSoundPlayed = false;
 
 Platform* currentPlatforms = nullptr;
 int currentNumPlatforms = 0;
@@ -70,6 +72,7 @@ void resetLevelData() {
 void resetLevel() {
     player = Player();
     gameState = PLAYING;
+    deathSoundPlayed = false;
     setLevelData(currentLevel);
     resetLevelData();
 }

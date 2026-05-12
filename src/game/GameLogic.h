@@ -4,6 +4,7 @@
 #include "../common/Structs.h"
 #include "../common/Constants.h"
 #include "../core/GameManager.h"
+#include "../core/AudioManager.h"
 #include "../physics/PhysicsEngine.h"
 
 // Level 1 trap logic: moving platforms that shrink
@@ -112,7 +113,15 @@ void updateTrapPlatforms() {
     }
 
     // Falling death
-    if (player.y < -15) gameState = DIED;
+    if (player.y < -15) {
+        if (gameState != DIED) {
+            gameState = DIED;
+            if (!deathSoundPlayed) {
+                playDeathSound();
+                deathSoundPlayed = true;
+            }
+        }
+    }
 }
 
 // Spike logic (Level 1 only)
@@ -145,7 +154,13 @@ void updateSpikes() {
         if (!s.isHidden) {
             if (player.x + player.width > s.x && player.x < s.x + s.width &&
                 player.y + player.height > s.y && player.y < s.y + s.height) {
-                gameState = DIED;
+                if (gameState != DIED) {
+                    gameState = DIED;
+                    if (!deathSoundPlayed) {
+                        playDeathSound();
+                        deathSoundPlayed = true;
+                    }
+                }
             }
         }
     }
@@ -154,6 +169,7 @@ void updateSpikes() {
 void checkGoalReached() {
     if (player.x + player.width > goal.x && player.x < goal.x + goal.width &&
         player.y + player.height > goal.y && player.y < goal.y + goal.height) {
+        playGoalSound();
         loadNextLevel();
     }
 }

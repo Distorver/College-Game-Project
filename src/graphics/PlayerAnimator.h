@@ -50,8 +50,15 @@ void updateAnimation(const Player& p, float dx, float dt) {
         newState = ANIM_IDLE;
     }
 
+    if (animState == ANIM_WALK && player.isGrounded){
+        startRunningSound();
+    }
     // Reset frame on state change
     if (newState != animState) {
+        if (animState == ANIM_WALK || !player.isGrounded) {
+            stopRunningSound();
+        }
+
         animState = newState;
         animFrame = 0;
         animTimer = 0.0f;

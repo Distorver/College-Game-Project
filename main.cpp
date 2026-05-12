@@ -3,6 +3,7 @@
 #include "src/common/Structs.h"
 #include "src/core/GameManager.h"
 #include "src/core/InputHandler.h"
+#include "src/core/AudioManager.h"
 #include "src/physics/PhysicsEngine.h"
 #include "src/game/GameLogic.h"
 #include "src/graphics/Renderer.h"
@@ -20,7 +21,7 @@ int main(int argc, char** argv) {
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE);
     glutInitWindowSize(1920, 1080);
-    glutCreateWindow("Level Devil - Double Jump");
+    glutCreateWindow("College Game Project");
     glutFullScreen();
 
     gluOrtho2D(0, 160, 0, 90);
@@ -29,6 +30,8 @@ int main(int argc, char** argv) {
 
     loadLevel(1);
     initInput();
+    initAudio();
+    playBackgroundMusic();
 
     glutKeyboardFunc(onKeyPressed);
     glutKeyboardUpFunc(onKeyReleased);
