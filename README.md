@@ -1,4 +1,4 @@
-# Level Devil Clone: Precision Platformer
+# Level Devil Clone: Using openGL
 
 <div align="center">
   <img src="assets/screenshots/screenshot-2.gif" alt="Level Devil Clone Gameplay" width="600"/>
