@@ -1,4 +1,4 @@
-# Level Devil Clone: Using openGL
+# Level Devil Clone: using openGL
 
 <div align="center">
   <img src="assets/screenshots/screenshot-2.gif" alt="Level Devil Clone Gameplay" width="600"/>
@@ -12,8 +12,8 @@ Every system in this game—from the kinematic physics to the spatial collision 
 ## 📸 Gallery
 
 <div align="center">
-  <img src="assets/screenshots/screenshot-1.gif" alt="Level Trap" width="400"/>
-  <img src="assets/screenshots/screenshot-3.gif" alt="" width="400"/>
+  <img src="assets/screenshots/screenshot-1.gif" alt="Trap-1" width="400"/>
+  <img src="assets/screenshots/screenshot-3.gif" alt="Trap-2" width="400"/>
 </div>
 
 ## Technical Showcase
@@ -45,7 +45,7 @@ The controls are intentionally tight and responsive to accommodate the punishing
 
 * **`A` / `D`** (or `Left` / `Right` Arrows) — Horizontal Movement
 * **`W` / `up` / `Spacebar`** — Jump
-* **`b`** — mutes the music / **`m`** — mutes the game
+* **`B`** — mutes the music / **`M`** — mutes the game
 * **`Esc`** — Quit Game
 
 ## ⚙️ Build & Installation
