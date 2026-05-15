@@ -100,12 +100,13 @@ void renderScene() {
     renderSpikes();
     renderLevel();
     renderGoal();
-    renderPlayer();
+    // renderPlayer();
     
     // Render FPS counter
     renderFPS();
 
     if (gameState == DIED) {
+        renderPlayer();
         glMatrixMode(GL_PROJECTION);
         glPushMatrix();
         glLoadIdentity();
@@ -122,7 +123,24 @@ void renderScene() {
         glMatrixMode(GL_PROJECTION);
         glPopMatrix();
         glMatrixMode(GL_MODELVIEW);
-    }
+    } else if(gameState == WON){
+        glMatrixMode(GL_PROJECTION);
+        glPushMatrix();
+        glLoadIdentity();
+        glOrtho(0, 1920, 1080, 0, -1, 1);
+
+        glMatrixMode(GL_MODELVIEW);
+        glPushMatrix();
+        glLoadIdentity();
+
+        glColor3f(0.2f, 1.0f, 0.2f);
+        renderCenteredText("Congrats! YOU HAVE FINISHED THE GAME\n PRESS ESC TO EXIT", 520.0f, GLUT_BITMAP_HELVETICA_18);
+
+        glPopMatrix();
+        glMatrixMode(GL_PROJECTION);
+        glPopMatrix();
+        glMatrixMode(GL_MODELVIEW);
+    } else {renderPlayer();}
     
     glutSwapBuffers();
 }

@@ -26,6 +26,6 @@ struct Player {
     int jumpCount = 0;
 };
 
-enum GameState { PLAYING, DIED };
+enum GameState { PLAYING, DIED, WON };
 
 #endif

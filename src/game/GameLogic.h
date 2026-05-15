@@ -81,9 +81,9 @@ void updateTrapPlatformsLevel3() {
 
         // 3. Set the speed based on whether it is triggered or not
         if(p.trigger) {
-            dx = 15.0f * deltaTime;  // Move Right after triggering
+            dx = 20.0f * deltaTime;  // Move Right after triggering
         } else {
-            dx = -15.0f * deltaTime; // Move Left before triggering
+            dx = -20.0f * deltaTime; // Move Left before triggering
         }
 
         // 4. Move the platform

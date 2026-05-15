@@ -84,8 +84,12 @@ void loadLevel(int level) {
 }
 
 void loadNextLevel() {
-    currentLevel = (currentLevel < MAX_LEVELS ? currentLevel + 1 : 1);
-    loadLevel(currentLevel);
+    if (currentLevel < MAX_LEVELS) {
+        currentLevel++;
+        loadLevel(currentLevel);
+    } else {
+        gameState = WON;
+    }
 }
 
 #endif
